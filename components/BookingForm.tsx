@@ -1,6 +1,6 @@
 "use client";
-
-import { useMemo, useState } from "react";
+import { supabase } from "../lib/supabase";
+import { useMemo, useState, useEffect } from "react";
 import { cuts } from "../data/cuts";
 
 export default function BookingForm() {
@@ -17,7 +17,7 @@ export default function BookingForm() {
   const [hour, setHour] = useState("11:30");
 
   const [payment, setPayment] = useState("Efectivo");
-
+  const [horarios, setHorarios] = useState<any[]>([]);
   const availableHours: Record<string, string[]> = {
     Lunes: ["11:30", "12:30", "13:30", "14:30", "17:30"],
     Martes: ["11:30", "12:30", "13:30", "14:30", "17:30"],
@@ -37,23 +37,53 @@ export default function BookingForm() {
     return price;
   }, [beard, eyebrows]);
 
-  const sendWhatsApp = () => {
-    if (!name.trim()) {
-      alert("Ingresa tu nombre");
-      return;
-    }
+ const sendWhatsApp = async () => {
+  if (!name.trim()) {
+    alert("Ingresa tu nombre");
+    return;
+  }
 
-    if (!age.trim()) {
-      alert("Ingresa tu edad");
-      return;
-    }
+  if (!age.trim()) {
+    alert("Ingresa tu edad");
+    return;
+  }
 
-    if (!sector.trim()) {
-      alert("Ingresa tu sector o dirección de referencia");
-      return;
-    }
+  if (!sector.trim()) {
+    alert("Ingresa tu sector o dirección de referencia");
+    return;
+  }
 
-    const message = `💈 RESERVA CHINO BARBER 💈
+  const { error } = await supabase
+    .from("bookings")
+    .insert([
+      {
+        nombre: name,
+        edad: Number(age),
+
+        comuna,
+        sector,
+
+        corte: cut,
+
+        barba: beard,
+        cejas: eyebrows,
+
+        dia: day,
+        hora: hour,
+
+        pago: payment,
+
+        total,
+      },
+    ]);
+
+  if (error) {
+  console.log(JSON.stringify(error, null, 2));
+  alert(JSON.stringify(error, null, 2));
+  return;
+}
+
+  const message = `💈 RESERVA CHINO BARBER 💈
 
 👤 Nombre: ${name}
 🎂 Edad: ${age}
@@ -74,13 +104,13 @@ export default function BookingForm() {
 
 Quiero confirmar esta reserva.`;
 
-    const url = `https://wa.me/56940559447?text=${encodeURIComponent(
-      message
-    )}`;
+  window.open(
+    `https://wa.me/56940559447?text=${encodeURIComponent(message)}`,
+    "_blank"
+  );
 
-    window.open(url, "_blank");
-  };
-
+  alert("Reserva guardada correctamente");
+};
   return (
     <section
       id="reserva"
