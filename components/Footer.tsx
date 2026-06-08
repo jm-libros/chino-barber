@@ -36,6 +36,16 @@ export default function Footer() {
         </p>
 
       </div>
+
+      <div className="mt-6 text-center">
+  <a
+    href="https://www.instagram.com/chino_barber"
+    target="_blank"
+    className="text-[#D4AF37] font-bold hover:underline"
+  >
+    📸 @chino_barber
+  </a>
+</div>
     </footer>
   );
 }
