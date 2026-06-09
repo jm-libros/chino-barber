@@ -12,7 +12,7 @@ export default function Hero() {
       <div>
 
         <h1 className="text-6xl md:text-8xl font-extrabold text-[#D4AF37] tracking-widest">
-          CHINO BARBER
+        M IMPERIO BARBER
         </h1>
 
         <div className="w-40 h-1 bg-[#B22222] mx-auto my-8 rounded-full"></div>

@@ -139,7 +139,7 @@ export default function BookingForm() {
       return;
     }
 
-    const message = `💈 RESERVA CHINO BARBER 💈
+    const message = `💈 RESERVA M IMPERIO BARBER 💈
 
 👤 Nombre: ${name}
 🎂 Edad: ${age}

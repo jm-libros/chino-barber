@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Chino Barber",
+  title: "M IMPERIO BARBER",
   description: "Barbería Premium a Domicilio",
 };
 

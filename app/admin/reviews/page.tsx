@@ -5,45 +5,27 @@ import { supabase } from "../../../lib/supabase";
 
 export default function ReviewsAdmin() {
   const [reviews, setReviews] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadReviews();
   }, []);
 
   async function loadReviews() {
-    setLoading(true);
-
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("reviews")
       .select("*")
       .order("created_at", { ascending: false });
 
-    console.log("REVIEWS DATA:", data);
-    console.log("REVIEWS ERROR:", error);
-
-    if (error) {
-      alert("Error al cargar reseñas");
-      console.error(error);
-    }
-
     setReviews(data || []);
-    setLoading(false);
   }
 
   async function approveReview(id: number) {
-    const { error } = await supabase
+    await supabase
       .from("reviews")
       .update({
         aprobada: true,
       })
       .eq("id", id);
-
-    if (error) {
-      console.error(error);
-      alert("Error al aprobar");
-      return;
-    }
 
     loadReviews();
   }
@@ -55,16 +37,10 @@ export default function ReviewsAdmin() {
 
     if (!ok) return;
 
-    const { error } = await supabase
+    await supabase
       .from("reviews")
       .delete()
       .eq("id", id);
-
-    if (error) {
-      console.error(error);
-      alert("Error al eliminar");
-      return;
-    }
 
     loadReviews();
   }
@@ -73,22 +49,8 @@ export default function ReviewsAdmin() {
     <main className="min-h-screen bg-black text-white p-8">
 
       <h1 className="text-5xl font-bold text-[#D4AF37] mb-10">
-        RESEÑAS CHINO BARBER
+        RESEÑAS M IMPERIO BARBER
       </h1>
-
-      {loading && (
-        <p className="text-xl">
-          Cargando reseñas...
-        </p>
-      )}
-
-      {!loading && reviews.length === 0 && (
-        <div className="bg-[#120000] border border-red-900 rounded-xl p-6">
-          <p className="text-xl">
-            No hay reseñas registradas.
-          </p>
-        </div>
-      )}
 
       <div className="grid gap-6">
 
@@ -125,8 +87,8 @@ export default function ReviewsAdmin() {
 
             </div>
 
-            <div className="text-yellow-400 text-2xl mb-3">
-              {"⭐".repeat(review.estrellas || 0)}
+            <div className="text-yellow-400 text-xl mb-3">
+              {"⭐".repeat(review.estrellas)}
             </div>
 
             <p className="mb-4">
@@ -134,16 +96,15 @@ export default function ReviewsAdmin() {
             </p>
 
             <p className="text-gray-400 text-sm mb-4">
-              {review.created_at
-                ? new Date(
-                    review.created_at
-                  ).toLocaleString("es-CL")
-                : "Sin fecha"}
+              {new Date(
+                review.created_at
+              ).toLocaleString("es-CL")}
             </p>
 
             <div className="flex gap-3">
 
               {!review.aprobada && (
+
                 <button
                   onClick={() =>
                     approveReview(review.id)
@@ -157,6 +118,7 @@ export default function ReviewsAdmin() {
                 >
                   Aprobar
                 </button>
+
               )}
 
               <button

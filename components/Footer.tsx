@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto text-center">
 
         <h2 className="text-3xl font-bold text-[#D4AF37]">
-          CHINO BARBER
+        M IMPERIO BARBER
         </h2>
 
         <p className="mt-4 text-gray-400">
@@ -32,7 +32,8 @@ export default function Footer() {
         </a>
 
         <p className="mt-8 text-sm text-gray-500">
-          © 2026 Chino Barber
+          © 2026 M IMPERIO BARBER
+          SOPORTE:ignacio.m.gonzalez77@gmail.com
         </p>
 
       </div>
@@ -43,7 +44,7 @@ export default function Footer() {
     target="_blank"
     className="text-[#D4AF37] font-bold hover:underline"
   >
-    📸 @chino_barber
+    📸 @m-imperio-barber
   </a>
 </div>
     </footer>

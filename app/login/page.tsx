@@ -39,7 +39,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md bg-[#120000] border border-red-900 rounded-2xl p-8 shadow-2xl">
 
         <h1 className="text-4xl font-bold text-center text-[#D4AF37] mb-2">
-          CHINO BARBER
+        M IMPERIO BARBER
         </h1>
 
         <p className="text-center text-gray-400 mb-8">

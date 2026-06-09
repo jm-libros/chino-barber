@@ -4,7 +4,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
 
         <h1 className="text-2xl md:text-3xl font-bold text-[#D4AF37]">
-          CHINO BARBER
+          M IMPERIO BARBER
         </h1>
 
         <div className="flex gap-6 text-white font-semibold">
