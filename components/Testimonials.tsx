@@ -13,20 +13,29 @@ interface Review {
 export default function Testimonials() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [average, setAverage] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     loadReviews();
   }, []);
 
   async function loadReviews() {
+    setLoading(true);
+    setErrorMsg("");
+
     const { data, error } = await supabase
       .from("reviews")
       .select("*")
       .eq("aprobada", true)
       .order("created_at", { ascending: false });
 
+    console.log("REVIEWS DATA:", data);
+    console.log("REVIEWS ERROR:", error);
+
     if (error) {
-      console.error(error);
+      setErrorMsg(error.message);
+      setLoading(false);
       return;
     }
 
@@ -39,7 +48,11 @@ export default function Testimonials() {
       );
 
       setAverage(total / data.length);
+    } else {
+      setAverage(0);
     }
+
+    setLoading(false);
   }
 
   return (
@@ -56,6 +69,18 @@ export default function Testimonials() {
         <p className="text-center text-gray-400 mb-12">
           ⭐ {average.toFixed(1)} / 5 · Basado en {reviews.length} reseñas
         </p>
+
+        {loading && (
+          <p className="text-center text-gray-400">
+            Cargando reseñas...
+          </p>
+        )}
+
+        {errorMsg && (
+          <div className="bg-red-900 text-white p-4 rounded-xl mb-8">
+            Error Supabase: {errorMsg}
+          </div>
+        )}
 
         <div className="grid md:grid-cols-3 gap-6">
 
@@ -86,11 +111,13 @@ export default function Testimonials() {
 
         </div>
 
-        {reviews.length === 0 && (
-          <p className="text-center text-gray-500 mt-8">
-            Aún no hay reseñas disponibles.
-          </p>
-        )}
+        {!loading &&
+          !errorMsg &&
+          reviews.length === 0 && (
+            <p className="text-center text-gray-500 mt-8">
+              Aún no hay reseñas aprobadas.
+            </p>
+          )}
 
       </div>
     </section>

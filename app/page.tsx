@@ -1,9 +1,9 @@
+import Gallery from "../components/Gallery";
 import ReviewForm from "../components/ReviewForm";
 import Testimonials from "../components/Testimonials";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Services from "../components/Services";
-import Gallery from "../components/Gallery";
 import ScheduleTable from "../components/ScheduleTable";
 import BookingForm from "../components/BookingForm";
 import WhatsAppButton from "../components/WhatsAppButton";
@@ -18,7 +18,9 @@ export default function Home() {
       <Hero />
 
       <Services />
-      
+     
+      <Gallery />
+
       <Testimonials />
       
       <Gallery />

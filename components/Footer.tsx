@@ -39,7 +39,7 @@ export default function Footer() {
 
       <div className="mt-6 text-center">
   <a
-    href="https://www.instagram.com/chino_barber"
+    href="https://www.instagram.com/chino_barber.oficial"
     target="_blank"
     className="text-[#D4AF37] font-bold hover:underline"
   >
